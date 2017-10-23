@@ -4,3 +4,6 @@
 *.res
 *.sav
 *.csv
+
+.cache/
+*.pyc

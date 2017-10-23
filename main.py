@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 import codecs
 
+import editdistance
+
 def words_from_tsv(filepath):
     with codecs.open(filepath, 'r', 'utf-8') as f:
         lines = f.readlines()
     lines = [line.split('\t') for line in lines]
     words = _make_words(lines)
     return words
+
+def words_in_order(words, tsp_solver):
+    return tsp_solver.solve(words, editdistance.eval)
 
 def _make_words(lines):
     output = []

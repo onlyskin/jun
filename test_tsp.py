@@ -15,10 +15,29 @@ words = [word1, word2, word3, word4]
 def test_it_compares_two_words_by_word_with_distance_function():
     distance = tsp._compare(word1, word2, editdistance.eval)
     assert distance == 5
+    distance = tsp._compare(word1, word1, editdistance.eval)
+    assert distance == 9999
 
 def test_it_makes_distance_matrix():
     matrix = tsp._distance_matrix(words, editdistance.eval)
     assert len(matrix) == 4
     assert len(matrix[0]) == 4
-    assert matrix[1][1] == 0
+    assert matrix[1][1] == 9999
     assert matrix[0][1] == 5
+
+def test_it_makes_concorde_file_string():
+    string = tsp._concorde_file_string([
+        [9999, 1, 2, 5],
+        [1, 9999, 2, 5],
+        [6, 1, 9999, 5],
+        [7, 1, 2, 9999],
+    ])
+    assert '\n9999 1 2 5\n1 9999 2 5\n6 1 9999 5\n7 1 2 9999\n' in string
+    assert 'NAME: blah' in string
+    assert '\nTYPE: TSP\n' in string
+    assert '\nCOMMENT: blah' in string
+    assert '\nDIMENSION: 4\n' in string
+    assert '\nEDGE_WEIGHT_TYPE: EXPLICIT\n' in string
+    assert '\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\n' in string
+    assert '\nEDGE_WEIGHT_SECTION\n' in string
+    assert '\nEOF' in string

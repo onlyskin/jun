@@ -3,7 +3,8 @@ class Tsp():
         return
 
     def solve(self, words, distance_function):
-        matrix = self.distance_matrix(words, distance_function)
+        matrix = self._distance_matrix(words, distance_function)
+        file_output = self._concorde_file_string(matrix)
 
     def _compare(self, word1, word2, distance_function):
         if word1.word == word2.word:

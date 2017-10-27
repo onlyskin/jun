@@ -3,6 +3,8 @@ import codecs
 
 import editdistance
 
+from tsp import Tsp
+
 def words_from_tsv(filepath):
     with codecs.open(filepath, 'r', 'utf-8') as f:
         lines = f.readlines()
@@ -28,3 +30,8 @@ class Word():
     def __init__(self, word, translation):
         self.word = word
         self.translation = translation
+
+if __name__ == '__main__':
+    tsp_solver = Tsp()
+    words = words_from_tsv('fixtures/test.csv')
+    words_in_order = words_in_order(words, tsp_solver)

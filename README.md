@@ -9,3 +9,9 @@ how similar words are to each other may be an interesting or helpful order to
 study them as while studying you have the chance to make sure you see similar
 words near to each other and can be less likely to confuse them.
 
+To install:
+
+```
+brew tap homebrew/science
+brew install concorde
+```

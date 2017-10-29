@@ -41,3 +41,13 @@ def test_it_makes_concorde_file_string():
     assert '\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\n' in string
     assert '\nEDGE_WEIGHT_SECTION\n' in string
     assert '\nEOF' in string
+
+def test_it_reorders_words_based_on_concorde_output():
+    with open('fixtures/output.sol', 'r') as f:
+        output = f.read()
+    print output
+    result = tsp._match_words_to_concorde_output(output, [word1, word2, word3, word4, Word('', ''), Word('', ''), Word('', ''), Word('', ''), Word('', ''), Word('', ''), Word('', '')])
+    assert len(result) == 11
+    assert result[0] == word1
+    assert result[6] == word4
+

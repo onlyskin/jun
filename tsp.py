@@ -4,8 +4,20 @@ class Tsp():
 
     def solve(self, words, distance_function):
         matrix = self._distance_matrix(words, distance_function)
-        file_output = self._concorde_file_string(matrix)
-        return file_output
+        concorde_input = self._concorde_file_string(matrix)
+        #concorde_output = run_concorde()
+        return _match_words_to_concorde_output(concorde_output, words)
+
+    def _match_words_to_concorde_output(self, output, words):
+        order = self._make_order(output)
+        return [words[i] for i in order]
+
+    def _make_order(self, output):
+        result = output.split('\n')[1:]
+        result = ' '.join(result)
+        result = result.split(' ')
+        result = [int(o) for o in result if o != '']
+        return result
 
     def _compare(self, word1, word2, distance_function):
         if word1.word == word2.word:

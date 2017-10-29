@@ -16,6 +16,8 @@ To install:
 ```
 brew tap homebrew/science
 brew install concorde
+
+pip install editdistance
 ```
 
 To run Jun:
@@ -26,6 +28,9 @@ python main.py INPUT_FILE OUTPUT_FILE
 
 (This will read a tsv file with three columns (WORD, TRANSLATION, NOTES), and
 output the same lines reordered by similarity of WORD.)
+
+If you want to test the program, you can use the fixtures/input.tsv file as the
+INPUT_FILE
 
 To run the tests:
 

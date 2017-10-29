@@ -1,3 +1,8 @@
+import os
+import tempfile
+import subprocess
+import shutil
+
 class Tsp():
     def __init__(self):
         return
@@ -5,8 +10,21 @@ class Tsp():
     def solve(self, words, distance_function):
         matrix = self._distance_matrix(words, distance_function)
         concorde_input = self._concorde_file_string(matrix)
-        #concorde_output = run_concorde()
-        return _match_words_to_concorde_output(concorde_output, words)
+        concorde_output = self._run_concorde(concorde_input)
+        return self._match_words_to_concorde_output(concorde_output, words)
+
+    def _run_concorde(self, concorde_input):
+        cwd = os.getcwd()
+        temp_dir = tempfile.mkdtemp()
+        os.chdir(temp_dir)
+        with open('temp.txt', 'w') as f:
+            f.write(concorde_input)
+        subprocess.call(['concorde', 'temp.txt'], stdout=None)
+        with open('temp.sol', 'r') as f:
+            concorde_output = f.read()
+        os.chdir(cwd)
+        shutil.rmtree(temp_dir)
+        return concorde_output
 
     def _match_words_to_concorde_output(self, output, words):
         order = self._make_order(output)
